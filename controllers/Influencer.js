@@ -37,9 +37,11 @@ const list = async (req, res) => {
 const post = async (req, res) => {
     console.log(req.file)
     const influencer = new Influencer({
-        name: req.body.nama,
+        name: req.body.name,
         pic: req.file.destination + "" + req.file.filename,
         desc: req.body.desc,
+        gender: req.body.gender,
+        country: req.body.country,
         tags: req.body.tags.toLowerCase().split(" ")
     })
 
