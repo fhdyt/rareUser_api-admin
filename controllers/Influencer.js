@@ -36,9 +36,15 @@ const list = async (req, res) => {
 
 const post = async (req, res) => {
     console.log(req.file)
+    if (req.file == null) {
+        var name_file = "";
+    }
+    else {
+        var name_file = req.file.destination + "" + req.file.filename
+    }
     const influencer = new Influencer({
         name: req.body.name,
-        pic: req.file.destination + "" + req.file.filename,
+        pic: name_file,
         desc: req.body.desc,
         gender: req.body.gender,
         country: req.body.country,
