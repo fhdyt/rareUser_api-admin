@@ -19,10 +19,13 @@ app.get('/', (req, res) => {
     res.json({ status: "Server Running", baseUrl: process.env.BASE_URL })
 })
 
+const countryRoute = require('./routes/country')
 const influencerRoute = require('./routes/influencer')
 const postsRoute = require('./routes/posts')
 const platformsRoute = require('./routes/platforms')
 const commentsRoute = require('./routes/comments')
+
+app.use('/country', countryRoute)
 
 app.use('/influencer', influencerRoute)
 app.use('/posts', postsRoute)

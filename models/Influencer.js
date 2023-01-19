@@ -11,7 +11,8 @@ const IncluencerSchema = mongoose.Schema({
         type: String
     },
     country: {
-        type: String
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Country'
     },
     gender: {
         type: String

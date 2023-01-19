@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 
 const get = async (req, res) => {
     try {
-        const influencer = await Comments.find().populate('influencer').exec()
+        const influencer = await Comments.find().populate('Influencer').exec()
         res.status(200);
         res.json(influencer)
     }
