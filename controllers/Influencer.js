@@ -4,7 +4,9 @@ const Influencer = require('../models/Influencer')
 const Country = require('../models/Country')
 
 const list = async (req, res) => {
+    console.log(process.env.BASE_URL)
     try {
+
         // const influencer = await Influencer.find()
         const influencer = await Influencer.find().populate('country', 'name country_id').exec()
         res.status(200);
