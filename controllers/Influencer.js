@@ -14,6 +14,7 @@ const list = async (req, res) => {
         res.json(influencer.map(doc => {
             return {
                 _id: doc._id,
+                name: doc.name,
                 pic: process.env.BASE_URL + "/" + doc.pic,
                 desc: doc.desc,
                 country: doc.country,
