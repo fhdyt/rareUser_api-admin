@@ -5,7 +5,7 @@ const mongoose = require('mongoose')
 const tags = async (req, res) => {
     console.log(req.params.id)
     try {
-        const country = await Influencer.find({ tags: { $elemMatch: { $eq: req.params.id } } }).populate('country', 'name country_id');
+        const influencer = await Influencer.find({ tags: { $elemMatch: { $eq: req.params.id } } }).populate('country', 'name country_id');
 
         res.status(200);
         res.json(influencer.map(doc => {
