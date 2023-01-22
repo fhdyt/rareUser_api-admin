@@ -8,7 +8,17 @@ const tags = async (req, res) => {
         const country = await Influencer.find({ tags: { $elemMatch: { $eq: req.params.id } } }).populate('country', 'name country_id');
 
         res.status(200);
-        res.json(country)
+        res.json(influencer.map(doc => {
+            return {
+                _id: doc._id,
+                name: doc.name,
+                pic: process.env.BASE_URL + "/" + doc.pic,
+                desc: doc.desc,
+                country: doc.country,
+                gender: doc.gender,
+                tags: doc.tags,
+            }
+        }))
     }
     catch (err) {
         res.json(err)
