@@ -24,6 +24,7 @@ const influencerRoute = require('./routes/influencer')
 const postsRoute = require('./routes/posts')
 const platformsRoute = require('./routes/platforms')
 const commentsRoute = require('./routes/comments')
+const searchRoute = require('./routes/search')
 
 app.use('/country', countryRoute)
 
@@ -31,6 +32,7 @@ app.use('/influencer', influencerRoute)
 app.use('/posts', postsRoute)
 app.use('/platforms', platformsRoute)
 app.use('/comments', commentsRoute)
+app.use('/search', searchRoute)
 
 
 app.use('/uploads', express.static('uploads'))
