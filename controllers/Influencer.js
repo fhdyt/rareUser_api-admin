@@ -30,7 +30,7 @@ const list = async (req, res) => {
 
 const detail = async (req, res) => {
     try {
-        const influencer = await Influencer.find({ "_id": req.params.id }).populate('country')
+        const influencer = await Influencer.find({ "_id": req.params.id }).populate('country', 'name country_id')
         res.status(200);
         res.json(influencer)
     }
