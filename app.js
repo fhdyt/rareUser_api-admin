@@ -4,6 +4,8 @@ const app = express()
 const mongoose = require('mongoose')
 const bodyParses = require('body-parser')
 
+
+
 app.use(bodyParses.urlencoded({ extended: false }))
 app.use(bodyParses.json())
 
@@ -16,7 +18,8 @@ app.use((req, res, next) => {
     next()
 })
 app.get('/', (req, res) => {
-    res.json({ status: "Server Running", baseUrl: process.env.BASE_URL })
+
+    // res.json({ status: "Server Running", baseUrl: process.env.BASE_URL })
 })
 
 const countryRoute = require('./routes/country')

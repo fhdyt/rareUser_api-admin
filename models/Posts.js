@@ -10,6 +10,9 @@ const PostsSchema = mongoose.Schema({
     file: {
         type: String,
     },
+    thumbnail: {
+        type: String,
+    },
 
 })
 PostsSchema.set('timestamps', true)

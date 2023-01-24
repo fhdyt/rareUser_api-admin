@@ -2,6 +2,44 @@ const express = require('express');
 const Influencer = require('../models/Influencer');
 const mongoose = require('mongoose')
 
+const findDoc = async (req, res) => {
+    console.log(req.params.id)
+    try {
+        let search = {
+            $or: [
+                { name: req.params.id },
+                { desc: req.params.id },
+                { gender: req.params.id },
+                {
+                    tags: {
+                        $elemMatch: { $eq: req.params.id }
+                    }
+                },
+            ],
+
+        }
+
+        const influencer = await Influencer.find(search).populate('country', 'name country_id');
+
+        res.status(200);
+        res.json(influencer.map(doc => {
+            return {
+                _id: doc._id,
+                name: doc.name,
+                pic: process.env.BASE_URL + "/" + doc.pic,
+                desc: doc.desc,
+                country: doc.country,
+                gender: doc.gender,
+                tags: doc.tags,
+            }
+        }))
+    }
+    catch (err) {
+        res.json(err)
+    }
+}
+
+
 const tags = async (req, res) => {
     console.log(req.params.id)
     try {
@@ -25,4 +63,4 @@ const tags = async (req, res) => {
     }
 }
 
-module.exports = { tags }
+module.exports = { tags, findDoc }

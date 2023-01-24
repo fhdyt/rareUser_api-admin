@@ -3,21 +3,49 @@ const Influencer = require('../models/Influencer');
 const Posts = require('../models/Posts');
 const mongoose = require('mongoose')
 
+const ffmpeg = require('fluent-ffmpeg');
+const ffmpegPath = require('@ffmpeg-installer/ffmpeg').path;
+const ffprobePath = require('@ffprobe-installer/ffprobe').path;
+
+ffmpeg.setFfmpegPath(ffmpegPath);
+ffmpeg.setFfprobePath(ffprobePath);
+
 const post = async (req, res) => {
-    const postItem = new Posts({
-        url: req.body.url,
-        source: req.body.source,
-        file: req.file.destination + "" + req.file.filename,
-    })
-    console.log(req.body)
-    console.log(req.body.source)
+
     try {
+        ffmpeg(req.file.destination + "" + req.file.filename)
+            .on('filenames', function (filenames) {
+                console.log('Will generate ' + filenames.join(', '))
+
+            })
+            .on('end', function (filenames) {
+                console.log('Screenshoot has taken')
+            })
+            .on('error', function (err) {
+                console.log(err)
+            })
+            .screenshot({
+                count: 1,
+                folder: './uploads/thumb',
+                size: '320x?',
+                filename: 'thumb-%b'
+            })
+        const thumName = req.file.filename.toLowerCase().split(".")
+        const postItem = new Posts({
+            url: req.body.url,
+            source: req.body.source,
+            file: req.file.destination + "" + req.file.filename,
+            thumbnail: req.file.destination + "thumb/" + thumName[0] + ".png",
+        })
+
         const postsInfluencer = await Influencer.findByIdAndUpdate(
             req.params.id,
             { $push: { posts: postItem } },
         );
+
+
         res.status(200);
-        res.json({ postsInfluencer })
+        res.json(postItem)
     }
     catch (err) {
         res.json({ "status": err })
