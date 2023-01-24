@@ -35,7 +35,7 @@ const post = async (req, res) => {
             url: req.body.url,
             source: req.body.source,
             file: req.file.destination + "" + req.file.filename,
-            thumbnail: req.file.destination + "thumb/" + thumName[0] + ".png",
+            thumbnail: req.file.destination + "thumb/thumb-" + thumName[0] + ".png",
         })
 
         const postsInfluencer = await Influencer.findByIdAndUpdate(
