@@ -41,7 +41,15 @@ const detail = async (req, res) => {
                 country: doc.country,
                 gender: doc.gender,
                 tags: doc.tags,
-                posts: doc.posts,
+                posts: doc.posts.map(post => {
+                    return {
+                        url: post.url,
+                        source: post.source,
+                        file: process.env.BASE_URL + "/" + post.file,
+                        thumbnail: process.env.BASE_URL + "/" + post.thumbnail,
+                    }
+
+                }),
                 platforms: doc.platforms,
             }
         }))
