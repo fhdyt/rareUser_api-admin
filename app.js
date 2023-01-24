@@ -39,6 +39,7 @@ app.use('/search', searchRoute)
 
 
 app.use('/uploads', express.static('uploads'))
+app.use('/uploads/thumb', express.static('uploads/thumb'))
 
 mongoose.set('strictQuery', false);
 mongoose.connect(process.env.DB_CONNECTION, { useNewUrlParser: true })
