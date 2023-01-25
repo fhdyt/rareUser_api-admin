@@ -95,24 +95,33 @@ const post = async (req, res) => {
 
 const update = async (req, res) => {
     try {
+        const country = await Country.findOne({ country_id: req.body.country })
+        try {
 
-        const postInfluencer = await Influencer.updateOne(
-            { _id: req.params.id },
-            {
-                $set: {
-                    name: req.body.nama,
-                    pic: req.file.destination + "" + req.file.filename,
-                    desc: req.body.desc,
-                    tags: req.body.tags.split(" ")
+            const postInfluencer = await Influencer.updateOne(
+                { _id: req.params.id },
+                {
+                    $set: {
+                        name: req.body.name,
+                        pic: name_file,
+                        desc: req.body.desc,
+                        gender: req.body.gender,
+                        country: country,
+                        tags: req.body.tags.toLowerCase().split(" ")
+                    }
                 }
-            }
-        )
-        res.status(200);
-        res.json(postInfluencer)
+            )
+            res.status(200);
+            res.json(postInfluencer)
+        }
+        catch (err) {
+            res.json({ "status": err })
+        }
     }
     catch (err) {
-        res.json({ "status": err })
+
     }
+
 }
 
 
