@@ -97,7 +97,12 @@ const update = async (req, res) => {
     try {
         const country = await Country.findOne({ country_id: req.body.country })
         try {
-
+            if (req.file == null) {
+                var name_file = "";
+            }
+            else {
+                var name_file = req.file.destination + "" + req.file.filename
+            }
             const postInfluencer = await Influencer.updateOne(
                 { _id: req.params.id },
                 {
@@ -119,7 +124,7 @@ const update = async (req, res) => {
         }
     }
     catch (err) {
-
+        res.json({ "status": err })
     }
 
 }
