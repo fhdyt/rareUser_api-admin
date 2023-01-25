@@ -6,5 +6,6 @@ const upload = require('../middlewares/upload')
 
 router.get('/:id', SearchController.findDoc)
 router.get('/tags/:id', SearchController.tags)
+router.get('/country/:id', SearchController.country)
 
 module.exports = router
