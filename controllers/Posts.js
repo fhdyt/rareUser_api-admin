@@ -25,7 +25,16 @@ const allPost = async (req, res) => {
             user.posts.map(post => ({ ...post, user_id: user._id }))
         );
         res.status(200);
-        res.json(flattenedData)
+        res.json(flattenedData.map((doc) => {
+            return {
+                url: doc.url,
+                source: doc.source,
+                file: process.env.BASE_URL + "/" + doc.file,
+                thumbnail: process.env.BASE_URL + "/" + doc.thumbnail,
+                _id: doc._id,
+                user_id: doc.user_id
+            }
+        }))
     }
     catch (err) {
         res.json({ status: err })
