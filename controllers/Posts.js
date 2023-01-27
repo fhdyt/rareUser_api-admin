@@ -10,6 +10,28 @@ const ffprobePath = require('@ffprobe-installer/ffprobe').path;
 ffmpeg.setFfmpegPath(ffmpegPath);
 ffmpeg.setFfprobePath(ffprobePath);
 
+
+const allPost = async (req, res) => {
+    try {
+        const postsInfluencer = await Influencer.find({}, { "posts": 1 })
+        // let newData = [];
+
+        // postsInfluencer.forEach(item => {
+        //     item.posts.forEach(post => {
+        //         newData.push(post);
+        //     });
+        // });
+        const flattenedData = postsInfluencer.flatMap(user =>
+            user.posts.map(post => ({ ...post, user_id: user._id }))
+        );
+        res.status(200);
+        res.json(flattenedData)
+    }
+    catch (err) {
+        res.json({ status: err })
+
+    }
+}
 const post = async (req, res) => {
 
     try {
@@ -74,4 +96,4 @@ const removePosts = async (req, res) => {
 }
 
 
-module.exports = { post, removePosts }
+module.exports = { post, removePosts, allPost }
