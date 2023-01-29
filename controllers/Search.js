@@ -62,6 +62,25 @@ const tags = async (req, res) => {
         res.json(err)
     }
 }
+const all_tags = async (req, res) => {
+    try {
+        const influencer = await Influencer.find();
+        const tags = influencer.map(doc => {
+            return {
+                tags: doc.tags,
+            }
+        })
+        const result = [...new Set(tags.reduce((acc, cur) => [...acc, ...cur.tags], []))];
+
+        res.status(200);
+        res.json(result)
+
+        res.json()
+    }
+    catch (err) {
+        res.json(err)
+    }
+}
 
 const country = async (req, res) => {
     console.log(req.params.id)
@@ -86,4 +105,4 @@ const country = async (req, res) => {
     }
 }
 
-module.exports = { tags, findDoc, country }
+module.exports = { tags, findDoc, country, all_tags }
