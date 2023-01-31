@@ -8,7 +8,7 @@ const list = async (req, res) => {
     try {
 
         // const influencer = await Influencer.find()
-        const influencer = await Influencer.find().populate('country', 'name country_id').exec()
+        const influencer = await Influencer.find().populate('country', 'name country_id').sort({ createdAt: 'desc' }).exec()
         res.status(200);
         // res.json(influencer)
         res.json(influencer.map(doc => {
