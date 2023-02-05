@@ -31,37 +31,32 @@ const list = async (req, res) => {
 const detail = async (req, res) => {
     try {
         const influencer = await Influencer.find({ "_id": req.params.id }).populate('country', 'name country_id')
-        if (influencer.length == 0) {
-            res.status(200);
-            res.json({})
-        }
-        else {
-            res.status(200);
-            res.json(influencer.map(doc => {
-                return {
-                    _id: doc._id,
-                    name: doc.name,
-                    pic: process.env.BASE_URL + "/" + doc.pic,
-                    desc: doc.desc,
-                    country: doc.country,
-                    gender: doc.gender,
-                    tags: doc.tags,
-                    posts: doc.posts.map(post => {
-                        return {
-                            url: post.url,
-                            source: post.source,
-                            file: process.env.BASE_URL + "/" + post.file,
-                            thumbnail: process.env.BASE_URL + "/" + post.thumbnail,
-                        }
+        res.status(200);
+        res.json(influencer.map(doc => {
+            return {
+                _id: doc._id,
+                name: doc.name,
+                pic: process.env.BASE_URL + "/" + doc.pic,
+                desc: doc.desc,
+                country: doc.country,
+                gender: doc.gender,
+                tags: doc.tags,
+                posts: doc.posts.map(post => {
+                    return {
+                        url: post.url,
+                        source: post.source,
+                        file: process.env.BASE_URL + "/" + post.file,
+                        thumbnail: process.env.BASE_URL + "/" + post.thumbnail,
+                    }
 
-                    }),
-                    platforms: doc.platforms,
-                }
-            }))
-        }
+                }),
+                platforms: doc.platforms,
+            }
+        }))
+
     }
     catch (err) {
-        console.log(err)
+        res.status(404);
         res.json({ "status": err })
     }
 }
