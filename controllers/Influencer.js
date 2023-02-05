@@ -56,12 +56,14 @@ const detail = async (req, res) => {
 
     }
     catch (err) {
+        console.log(err)
         res.status(404);
         res.json({ "status": err })
     }
 }
 
 const post = async (req, res) => {
+    console.log("NAmanya : " + req.body.name)
     if (req.file == null) {
         var name_file = "";
     }
@@ -80,11 +82,14 @@ const post = async (req, res) => {
                 country: country,
                 tags: req.body.tags.toLowerCase().split(" ")
             })
+
+
             const postInfluencer = await influencer.save()
             res.status(200);
             res.json(influencer)
         }
         catch (err) {
+            console.log(err)
             res.json({ "error": err })
         }
     }
