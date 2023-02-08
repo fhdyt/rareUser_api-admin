@@ -44,6 +44,7 @@ const detail = async (req, res) => {
                     tags: doc.tags,
                     posts: doc.posts.map(post => {
                         return {
+                            _id: post._id,
                             url: post.url,
                             source: post.source,
                             file: process.env.BASE_URL + "/" + post.file,
