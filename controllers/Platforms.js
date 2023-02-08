@@ -23,18 +23,20 @@ const post = async (req, res) => {
 }
 
 const removePlatform = async (req, res) => {
+    console.log(req.params.id)
+    console.log(req.params.id_platform)
     try {
         const platformInfluencer = await Influencer.findOneAndUpdate(
             { _id: mongoose.Types.ObjectId(req.params.id) },
             {
                 $pull:
                 {
-                    platformss: { _id: mongoose.Types.ObjectId(req.params.id_platform) }
+                    platforms: { _id: mongoose.Types.ObjectId(req.params.id_platform) }
                 }
             },
         );
         res.status(200);
-        res.json({ status: "ok" })
+        res.json(platformInfluencer)
     }
     catch (err) {
         res.json({ "status": err })
