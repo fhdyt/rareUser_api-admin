@@ -88,7 +88,8 @@ const removePosts = async (req, res) => {
     console.log(req.params.id_post)
     try {
         const postsInfluencer = await Influencer.findOneAndUpdate(
-            req.params.id,
+            { _id: mongoose.Types.ObjectId(req.params.id) }
+            ,
             {
                 $pull:
                 {
@@ -97,7 +98,7 @@ const removePosts = async (req, res) => {
             },
         );
         res.status(200);
-        res.json({ status: "ok" })
+        res.json({ postsInfluencer })
     }
     catch (err) {
         res.json({ "status": err })
