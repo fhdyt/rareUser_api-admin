@@ -25,7 +25,7 @@ const post = async (req, res) => {
 const removePlatform = async (req, res) => {
     try {
         const platformInfluencer = await Influencer.findOneAndUpdate(
-            req.params.id,
+            { _id: mongoose.Types.ObjectId(req.params.id) },
             {
                 $pull:
                 {
