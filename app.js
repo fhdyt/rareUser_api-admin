@@ -4,8 +4,6 @@ const app = express()
 const mongoose = require('mongoose')
 const bodyParses = require('body-parser')
 
-
-
 app.use(bodyParses.urlencoded({ extended: false }))
 app.use(bodyParses.json())
 
@@ -18,10 +16,10 @@ app.use((req, res, next) => {
     next()
 })
 app.get('/', (req, res) => {
-
     // res.json({ status: "Server Running", baseUrl: process.env.BASE_URL })
 })
 
+const authRoute = require('./routes/auth')
 const countryRoute = require('./routes/country')
 const influencerRoute = require('./routes/influencer')
 const postsRoute = require('./routes/posts')
@@ -29,14 +27,16 @@ const platformsRoute = require('./routes/platforms')
 const commentsRoute = require('./routes/comments')
 const searchRoute = require('./routes/search')
 
-app.use('/country', countryRoute)
+
+
+app.use('/auth', authRoute)
 
 app.use('/influencer', influencerRoute)
 app.use('/posts', postsRoute)
 app.use('/platforms', platformsRoute)
 app.use('/comments', commentsRoute)
 app.use('/search', searchRoute)
-
+app.use('/country', countryRoute)
 
 app.use('/uploads', express.static('uploads'))
 app.use('/uploads/thumb', express.static('uploads/thumb'))
