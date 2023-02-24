@@ -21,6 +21,7 @@ app.get('/', (req, res) => {
 
 const authRoute = require('./routes/auth')
 const countryRoute = require('./routes/country')
+const social_mediaRoute = require('./routes/social_media')
 const influencerRoute = require('./routes/influencer')
 const postsRoute = require('./routes/posts')
 const platformsRoute = require('./routes/platforms')
@@ -37,6 +38,7 @@ app.use('/platforms', platformsRoute)
 app.use('/comments', commentsRoute)
 app.use('/search', searchRoute)
 app.use('/country', countryRoute)
+app.use('/social_media', social_mediaRoute)
 
 app.use('/uploads', express.static('uploads'))
 app.use('/uploads/thumb', express.static('uploads/thumb'))
