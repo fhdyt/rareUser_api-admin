@@ -8,5 +8,6 @@ router.get('/:id', SearchController.findDoc)
 router.get('/tags/all', SearchController.all_tags)
 router.get('/tags/:id', SearchController.tags)
 router.get('/country/:id', SearchController.country)
+router.get('/social_media/:id', SearchController.social_media)
 
 module.exports = router
