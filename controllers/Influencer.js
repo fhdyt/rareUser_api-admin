@@ -80,7 +80,7 @@ const detail = async (req, res) => {
 }
 
 const post = async (req, res) => {
-    console.log("NAmanya : " + req.body.name)
+    console.log("Namanya : " + req.body.name)
     if (req.file == null) {
         var name_file = "";
     }
@@ -151,6 +151,31 @@ const update = async (req, res) => {
     }
 
 }
+const update_pic = async (req, res) => {
+    try {
+        if (req.file == null) {
+            var name_file = "";
+        }
+        else {
+            var name_file = req.file.destination + "" + req.file.filename
+        }
+        const postInfluencer = await Influencer.updateOne(
+            { _id: req.params.id },
+            {
+                $set: {
+                    pic: name_file,
+                }
+            }
+        )
+        res.status(200);
+        res.json(postInfluencer)
+    }
+    catch (err) {
+        res.json({ "status": err })
+    }
 
 
-module.exports = { list, post, update, detail }
+}
+
+
+module.exports = { list, post, update, detail, update_pic }
