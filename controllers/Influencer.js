@@ -190,7 +190,17 @@ const related = async (req, res) => {
             ).populate('country', 'name country_id').limit(10)
 
             res.status(200);
-            res.json(related)
+            res.json(related.map(doc => {
+                return {
+                    _id: doc._id,
+                    name: doc.name,
+                    pic: process.env.BASE_URL + "/" + doc.pic,
+                    desc: doc.desc,
+                    country: doc.country,
+                    gender: doc.gender,
+                    tags: doc.tags,
+                }
+            }))
         } catch (err) {
             res.json(err)
         }
