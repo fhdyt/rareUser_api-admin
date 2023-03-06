@@ -177,5 +177,29 @@ const update_pic = async (req, res) => {
 
 }
 
+const related = async (req, res) => {
+    try {
 
-module.exports = { list, post, update, detail, update_pic }
+        const influencer = await Influencer.find({ "_id": req.params.id })
+        try {
+            const related = await Influencer.find(
+                {
+                    _id: { $ne: req.params.id },
+                    tags: { $in: influencer[0].tags }
+                }
+            ).populate('country', 'name country_id').limit(10)
+
+            res.status(200);
+            res.json(related)
+        } catch (err) {
+            res.json(err)
+        }
+
+    }
+    catch (err) {
+        res.json(err)
+    }
+}
+
+
+module.exports = { list, post, update, detail, update_pic, related }
