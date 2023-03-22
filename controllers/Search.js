@@ -154,7 +154,7 @@ const top_list = async (req, res) => {
 const top_all_list = async (req, res) => {
     console.log(process.env.BASE_URL)
     try {
-        const influencer = await Influencer.find().populate('country', 'name country_id').sort({ score: 'desc' }).limit(10).exec()
+        const influencer = await Influencer.find().populate('country', 'name country_id').sort({ score: 'desc' }).exec()
         res.status(200);
         // res.json(influencer)
         res.json(influencer.map(doc => {
