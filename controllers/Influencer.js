@@ -207,7 +207,7 @@ const related = async (req, res) => {
                     _id: { $ne: req.params.id },
                     tags: { $in: influencer[0].tags }
                 }
-            ).populate('country', 'name country_id').limit(10)
+            ).populate('country', 'name country_id').sort({ score: 'desc' }).limit(10)
 
             res.status(200);
             res.json(related.map(doc => {
