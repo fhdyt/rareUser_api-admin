@@ -31,7 +31,7 @@ const IncluencerSchema = mongoose.Schema({
         ref: 'Comments'
     },
     score: {
-        type: mongoose.Schema.Types.Double,
+        type: mongoose.Decimal128,
         default: 0.0
     }
 })
