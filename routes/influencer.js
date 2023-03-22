@@ -11,5 +11,6 @@ router.get('/related/:id', InfluencerController.related)
 router.patch('/:id', upload.single('pic'), InfluencerController.update)
 router.patch('/pic/:id', upload.single('pic'), InfluencerController.update_pic)
 router.post('/', upload.single('pic'), InfluencerController.post)
+router.get('/top', InfluencerController.top_list)
 
 module.exports = router

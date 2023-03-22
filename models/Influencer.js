@@ -29,6 +29,10 @@ const IncluencerSchema = mongoose.Schema({
     comments: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Comments'
+    },
+    score: {
+        type: mongoose.Schema.Types.Double,
+        default: 0.0
     }
 })
 IncluencerSchema.set('timestamps', true)
