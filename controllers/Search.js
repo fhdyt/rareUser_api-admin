@@ -129,4 +129,50 @@ const social_media = async (req, res) => {
     }
 }
 
-module.exports = { tags, findDoc, country, all_tags, social_media }
+const top_list = async (req, res) => {
+    console.log(process.env.BASE_URL)
+    try {
+        const influencer = await Influencer.find().populate('country', 'name country_id').sort({ score: 'desc' }).limit(10).exec()
+        res.status(200);
+        // res.json(influencer)
+        res.json(influencer.map(doc => {
+            return {
+                _id: doc._id,
+                name: doc.name,
+                pic: process.env.BASE_URL + "/" + doc.pic,
+                desc: doc.desc,
+                country: doc.country,
+                gender: doc.gender,
+                tags: doc.tags,
+            }
+        }))
+    }
+    catch (err) {
+        res.json(err)
+    }
+}
+const top_all_list = async (req, res) => {
+    console.log(process.env.BASE_URL)
+    try {
+        const influencer = await Influencer.find().populate('country', 'name country_id').sort({ score: 'desc' }).limit(10).exec()
+        res.status(200);
+        // res.json(influencer)
+        res.json(influencer.map(doc => {
+            return {
+                _id: doc._id,
+                name: doc.name,
+                pic: process.env.BASE_URL + "/" + doc.pic,
+                desc: doc.desc,
+                country: doc.country,
+                gender: doc.gender,
+                tags: doc.tags,
+            }
+        }))
+    }
+    catch (err) {
+        res.json(err)
+    }
+}
+
+
+module.exports = { tags, findDoc, country, all_tags, social_media, top_list, top_all_list }
