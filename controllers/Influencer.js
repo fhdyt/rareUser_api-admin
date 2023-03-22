@@ -238,4 +238,4 @@ const related = async (req, res) => {
 }
 
 
-module.exports = { list, post, update, detail, update_pic, related }
+module.exports = { list, post, update, detail, update_pic, related, top_list }
