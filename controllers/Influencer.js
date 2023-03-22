@@ -20,6 +20,7 @@ const list = async (req, res) => {
                 country: doc.country,
                 gender: doc.gender,
                 tags: doc.tags,
+                score: doc.score,
             }
         }))
     }
@@ -55,6 +56,7 @@ const detail = async (req, res) => {
 
                     }),
                     platforms: doc.platforms,
+                    score: doc.score,
                 }
             }
             else {
@@ -175,8 +177,24 @@ const update_pic = async (req, res) => {
     catch (err) {
         res.json({ "status": err })
     }
+}
 
-
+const update_score = async (req, res) => {
+    try {
+        const postInfluencer = await Influencer.updateOne(
+            { _id: req.params.id },
+            {
+                $set: {
+                    score: req.body.score,
+                }
+            }
+        )
+        res.status(200);
+        res.json(postInfluencer)
+    }
+    catch (err) {
+        res.json({ "status": err })
+    }
 }
 
 const related = async (req, res) => {
@@ -214,4 +232,4 @@ const related = async (req, res) => {
 }
 
 
-module.exports = { list, post, update, detail, update_pic, related }
+module.exports = { list, post, update, detail, update_pic, related, update_score }

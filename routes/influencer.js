@@ -10,6 +10,7 @@ router.get('/:id', InfluencerController.detail)
 router.get('/related/:id', InfluencerController.related)
 router.patch('/:id', upload.single('pic'), InfluencerController.update)
 router.patch('/pic/:id', upload.single('pic'), InfluencerController.update_pic)
+router.patch('/score/:id', upload.single('pic'), InfluencerController.update_score)
 router.post('/', upload.single('pic'), InfluencerController.post)
 
 module.exports = router
