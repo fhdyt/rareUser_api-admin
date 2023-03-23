@@ -196,6 +196,25 @@ const update_score = async (req, res) => {
         res.json({ "status": err })
     }
 }
+const update_tags = async (req, res) => {
+    console.log(req.body.tags)
+    try {
+        const postInfluencer = await Influencer.updateOne(
+            { _id: req.params.id },
+            {
+                $set: {
+                    tags: req.body.tags.toLowerCase().split(" "),
+                }
+            }
+        )
+        res.status(200);
+        res.json(postInfluencer)
+    }
+    catch (err) {
+        console.log(err)
+        res.json({ "status": err })
+    }
+}
 
 const related = async (req, res) => {
     try {
@@ -232,4 +251,4 @@ const related = async (req, res) => {
 }
 
 
-module.exports = { list, post, update, detail, update_pic, related, update_score }
+module.exports = { list, post, update, detail, update_pic, related, update_score, update_tags }
