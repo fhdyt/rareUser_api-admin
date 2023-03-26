@@ -43,7 +43,10 @@ const findDoc = async (req, res) => {
 const tags = async (req, res) => {
     console.log(req.params.id)
     try {
-        const influencer = await Influencer.find({ tags: { $elemMatch: { $eq: req.params.id } } }).populate('country', 'name country_id');
+        const { page } = req.query
+        const skip = (page - 1) * 10
+        const influencer = await Influencer.find({ tags: { $elemMatch: { $eq: req.params.id } } }).populate('country', 'name country_id').skip(skip).limit(10);
+        // const influencer = await Influencer.find({ tags: { $elemMatch: { $eq: req.params.id } } }).populate('country', 'name country_id');
 
         res.status(200);
         res.json(influencer.map(doc => {
@@ -154,7 +157,10 @@ const top_list = async (req, res) => {
 const top_all_list = async (req, res) => {
     console.log(process.env.BASE_URL)
     try {
-        const influencer = await Influencer.find().populate('country', 'name country_id').sort({ score: 'desc' }).exec()
+        const { page } = req.query
+        console.log(page)
+        const skip = (page - 1) * 10
+        const influencer = await Influencer.find().populate('country', 'name country_id').sort({ score: 'desc' }).skip(skip).limit(10).exec()
         res.status(200);
         // res.json(influencer)
         res.json(influencer.map(doc => {
@@ -166,6 +172,7 @@ const top_all_list = async (req, res) => {
                 country: doc.country,
                 gender: doc.gender,
                 tags: doc.tags,
+                score: doc.score,
             }
         }))
     }
