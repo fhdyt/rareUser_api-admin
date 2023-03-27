@@ -28,6 +28,30 @@ const list = async (req, res) => {
         res.json(err)
     }
 }
+const list_all = async (req, res) => {
+    console.log(process.env.BASE_URL)
+    try {
+
+        // const influencer = await Influencer.find().populate('country', 'name country_id').sort({ createdAt: 'desc' }).skip(skip).limit(10).exec()
+        const influencer = await Influencer.find().populate('country', 'name country_id').sort({ createdAt: 'desc' }).exec()
+        res.status(200);
+        res.json(influencer.map(doc => {
+            return {
+                _id: doc._id,
+                name: doc.name,
+                pic: process.env.BASE_URL + "/" + doc.pic,
+                desc: doc.desc,
+                country: doc.country,
+                gender: doc.gender,
+                tags: doc.tags,
+                score: doc.score,
+            }
+        }))
+    }
+    catch (err) {
+        res.json(err)
+    }
+}
 
 
 
@@ -251,4 +275,4 @@ const related = async (req, res) => {
 }
 
 
-module.exports = { list, post, update, detail, update_pic, related, update_score, update_tags }
+module.exports = { list, post, update, detail, update_pic, related, update_score, update_tags, list_all }

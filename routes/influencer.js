@@ -6,6 +6,7 @@ const InfluencerController = require('../controllers/Influencer')
 const upload = require('../middlewares/upload')
 
 router.get('/', InfluencerController.list)
+router.get('/list/all', InfluencerController.list_all)
 router.get('/:id', InfluencerController.detail)
 router.get('/related/:id', InfluencerController.related)
 router.patch('/:id', upload.single('pic'), InfluencerController.update)
