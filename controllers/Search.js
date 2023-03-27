@@ -45,8 +45,8 @@ const tags = async (req, res) => {
     try {
         const { page } = req.query
         const skip = (page - 1) * 10
-        // const influencer = await Influencer.find({ tags: { $elemMatch: { $eq: req.params.id } } }).populate('country', 'name country_id').skip(skip).limit(10);
-        const influencer = await Influencer.find({ tags: { $elemMatch: { $eq: req.params.id } } }).populate('country', 'name country_id');
+        const influencer = await Influencer.find({ tags: { $elemMatch: { $eq: req.params.id } } }).populate('country', 'name country_id').skip(skip).limit(10);
+        // const influencer = await Influencer.find({ tags: { $elemMatch: { $eq: req.params.id } } }).populate('country', 'name country_id');
 
         res.status(200);
         res.json(influencer.map(doc => {
@@ -160,8 +160,8 @@ const top_all_list = async (req, res) => {
         const { page } = req.query
         console.log(page)
         const skip = (page - 1) * 10
-        // const influencer = await Influencer.find().populate('country', 'name country_id').sort({ score: 'desc' }).skip(skip).limit(10).exec()
-        const influencer = await Influencer.find().populate('country', 'name country_id').sort({ score: 'desc' }).exec()
+        const influencer = await Influencer.find().populate('country', 'name country_id').sort({ score: 'desc' }).skip(skip).limit(10).exec()
+        // const influencer = await Influencer.find().populate('country', 'name country_id').sort({ score: 'desc' }).exec()
         res.status(200);
         // res.json(influencer)
         res.json(influencer.map(doc => {

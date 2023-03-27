@@ -6,10 +6,10 @@ const Country = require('../models/Country')
 const list = async (req, res) => {
     console.log(process.env.BASE_URL)
     try {
-        // const { page } = req.query
-        // const skip = (page - 1) * 10
-        // const influencer = await Influencer.find().populate('country', 'name country_id').sort({ createdAt: 'desc' }).skip(skip).limit(10).exec()
-        const influencer = await Influencer.find().populate('country', 'name country_id').sort({ createdAt: 'desc' }).exec()
+        const { page } = req.query
+        const skip = (page - 1) * 10
+        const influencer = await Influencer.find().populate('country', 'name country_id').sort({ createdAt: 'desc' }).skip(skip).limit(10).exec()
+        // const influencer = await Influencer.find().populate('country', 'name country_id').sort({ createdAt: 'desc' }).exec()
         res.status(200);
         res.json(influencer.map(doc => {
             return {
